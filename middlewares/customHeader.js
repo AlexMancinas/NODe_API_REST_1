@@ -1,7 +1,7 @@
 const customHeader = (req, res, next) => {  
     try {
         const apikey = req.headers.api_key; 
-        if(apikey === 'leifer-01'){
+        if(apikey){
             next(); 
 
         } else{
@@ -11,7 +11,7 @@ const customHeader = (req, res, next) => {
         }
     } catch (error) {
         res.status(403);
-        res.send({ error: "Algo valio verga" })
+        res.send({ error: "Algo valio queso pero no se que" })
     }
   
 };

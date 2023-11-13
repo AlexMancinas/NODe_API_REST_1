@@ -4,8 +4,8 @@ const validateResults = require('../utils/handleValidator');
 const validateCreateItem = [
     check('name')
         .exists()
-        .notEmpty()
-        .isLength({ min: 3, max: 50 }),
+        .notEmpty(),
+        // .isLength({ min: 3, max: 50 }),
     check('album')
         .exists()
         .notEmpty(),
@@ -42,4 +42,15 @@ const validateCreateItem = [
         }
 ];
 
-module.exports = { validateCreateItem }; 
+const validatorGetItem = [
+    check('id')
+        .exists()
+        .notEmpty()
+        .isMongoId(),
+
+        (req, res, next) => {
+           return validateResults(req, res, next);
+        }
+];
+
+module.exports = { validateCreateItem, validatorGetItem }; 
