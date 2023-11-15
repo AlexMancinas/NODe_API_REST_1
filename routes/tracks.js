@@ -3,13 +3,13 @@ const { getItems, getItem, createItem, updateItem, deleteItem } = require('../co
 const router = express.Router();
 const { validateCreateItem, validatorGetItem } = require('../validators/tracks');
 const customHeader = require('../middlewares/customHeader');
-
+const authMiddleware = require('../middlewares/sessionMiddleware');
 //TODO http://localhost/tracks GET, POST, PUT, DELETE  
 
 /**
  * Route that gives us a list of items
  */
-router.get("/", getItems);
+router.get("/", authMiddleware ,getItems);
 
 /**
  * Route that gives us a specific item
