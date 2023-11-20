@@ -10,7 +10,7 @@ const getItems = async (req, res) => {
 
     try {
         const user = req.user;
-        const data = await tracksModel.find({});
+        const data = await tracksModel.findAllData({});
         // console.log(data);
         res.send({ data, user });
 
@@ -31,6 +31,8 @@ const getItem = async (req, res) => {
         req = matchedData(req);
         const { id } = req;
         const data = await tracksModel.findById(id);
+
+        // const data = await tracksModel.findOneData(id); //TODO check this method because is failing
         res.send({ data });
     } catch (error) {
         handleHttpError(res, 'Error en getItem');
@@ -88,7 +90,7 @@ const deleteItem = async (req, res) => {
         const { id } = req;
         const data = await tracksModel.delete({ _id: id });
         res.send({ data });
-    } catch (error) {
+    } catch (error) { 
         handleHttpError(res, 'Error en deleteItem');
         console.log(error);
     }

@@ -24,7 +24,7 @@ const registerCtrl = async (req, res) => {
         }
         res.send({ data });
     } catch (error) {
-
+        console.log(error);
         handleHttpError(res, "ERROR_REGISTER_USER");
     }
 }
@@ -37,15 +37,14 @@ const registerCtrl = async (req, res) => {
 const loginCtrl = async (req, res) => {
     try {
         req = matchedData(req);
-        const user = await usersModel.findOne({ email: req.email }).select("password name role email");
+        
+        const user = await usersModel.findOne({ email: req.email });
         if (!user) {
             
             handleHttpError(res, "USER_NOT_FOUND");
             return;
         }
-        
         const hashPassword = user.get("password");
-        console.log({hashPassword});
         const check = await compare(req.password, hashPassword); //Compare the password with the hashpassword in the database 
         
         if(!check){
@@ -60,7 +59,7 @@ const loginCtrl = async (req, res) => {
 
         res.send({ data });
     } catch (error) {
-
+        // console.log(error); 
         handleHttpError(res, "ERROR_LOGIN_USER");
     }
 }

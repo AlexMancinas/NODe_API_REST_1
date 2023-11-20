@@ -35,8 +35,7 @@ const validateCreateItem = [
         .notEmpty(),
     check('mediaId')
         .exists()
-        .notEmpty()
-        .isMongoId(),
+        .notEmpty(),
     (req, res, next) => {
         return validateResults(req, res, next);
     }
@@ -45,8 +44,8 @@ const validateCreateItem = [
 const validatorGetItem = [
     check('id')
         .exists()
-        .notEmpty()
-        .isMongoId(),
+        .notEmpty(),
+        
 
     (req, res, next) => {
         return validateResults(req, res, next);
@@ -56,8 +55,8 @@ const validatorGetItem = [
 const validatorUpdateItem = [
     check("id")
         .exists()
-        .notEmpty()
-        .isMongoId(),
+        .notEmpty(),
+     
     check("name")
         .exists()
         .notEmpty(),

@@ -4,6 +4,7 @@ const router = express.Router();
 const { validateCreateItem, validatorGetItem } = require('../validators/tracks');
 const customHeader = require('../middlewares/customHeader');
 const authMiddleware = require('../middlewares/sessionMiddleware');
+const checkRol = require('../middlewares/rol');
 //TODO http://localhost/tracks GET, POST, PUT, DELETE  
 
 /**
@@ -14,22 +15,28 @@ router.get("/", authMiddleware ,getItems);
 /**
  * Route that gives us a specific item
  */
-router.get("/:id", validatorGetItem,getItem);
+router.get("/:id", authMiddleware,validatorGetItem,getItem);
 
 /**
  * Route that creates a new item
  */
-router.post("/", validateCreateItem , customHeader,createItem);
+router.post(
+    "/", 
+    authMiddleware,
+    checkRol(["admin", "user"]),
+    validateCreateItem,
+    createItem
+    );
 
 /**
  * Route that updates an item
  */
-router.put("/:id", validatorGetItem, validateCreateItem, updateItem);
+router.put("/:id", authMiddleware,validatorGetItem, validateCreateItem, updateItem);
 
 /**
  * Route that deletes an item
  */
-router.delete("/:id", deleteItem);
+router.delete("/:id", authMiddleware, deleteItem);
 
 
 module.exports = router;   // export the router object so it can be used by the rest of the app
