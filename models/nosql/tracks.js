@@ -68,7 +68,7 @@ TracksSchema.statics.findOneData = function (id) {
     const joinData = this.aggregate([
         {
             $match: {
-                _id: mongoose.Types.ObjectId(id),
+                _id: new mongoose.Types.ObjectId(id),
             },
         },
         {

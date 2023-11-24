@@ -43,21 +43,20 @@ const Tracks = sequelize.define(
  * Implementando modelo personalizado
  */
 
-// Tracks.findAllData = function () {
-//   Tracks.belongsTo(Storage, {
-//     foreignKey: "mediaId",
-//     as: "audio",
-//   });
-//   return Tracks.findAll({ include: "audio" });
-// };
+Tracks.belongsTo(Storage, {
+  foreignKey: "mediaId",
+  as: "audio",
+});
 
-// Tracks.findOneData = function (id) {
-//   Tracks.belongsTo(Storage, {
-//     foreignKey: "mediaId",
-//     as: "audio",
-//   });
-//   return Tracks.findOne({ where: { id }, include: "audio" });
-// };
+Tracks.findAllData = function () {
+
+  return Tracks.findAll({ include: "audio" });
+};
+
+Tracks.findOneData = function (id) {
+  
+  return Tracks.findOne({ where: { id }, include: "audio" });
+};
 
 // Tracks.find = Tracks.findAll;
 // Tracks.findById = Tracks.findByPk;
